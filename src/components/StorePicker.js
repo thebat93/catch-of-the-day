@@ -1,6 +1,7 @@
 // Начальная страница, выбор магазина
 import React from 'react';
 import { getFunName } from '../helpers';
+import PropTypes from 'prop-types';
 
 class StorePicker extends React.Component {
     // constructor(props) {
@@ -23,6 +24,10 @@ class StorePicker extends React.Component {
         </form>
       );
     }
+}
+
+StorePicker.propTypes = {
+  history: PropTypes.object
 }
 
 export default StorePicker;

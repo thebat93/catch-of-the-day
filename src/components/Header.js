@@ -1,5 +1,6 @@
 // Хедер над списком рыб
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Stateless Functional Component
 const Header = (props) => {
@@ -16,6 +17,11 @@ const Header = (props) => {
             <h3 className="tagline"><span>{props.tagline}</span></h3>
         </header>
     )
+}
+
+// прописываем типы props компонента
+Header.propTypes = {
+    tagline: PropTypes.string.isRequired
 }
 
 export default Header;

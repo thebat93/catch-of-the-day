@@ -1,5 +1,6 @@
 // Форма для добавления рыбы
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AddFishForm extends React.Component {
     createFish(event) {
@@ -30,6 +31,10 @@ class AddFishForm extends React.Component {
             </form>
         )
     }
+}
+
+AddFishForm.propTypes = {
+    addFish: PropTypes.func.isRequired
 }
 
 export default AddFishForm;
