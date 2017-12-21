@@ -14,7 +14,9 @@ class App extends React.Component {
         this.addFish = this.addFish.bind(this); // присобачиваем обратно потерянный this для каждого метода 
         this.loadSamples = this.loadSamples.bind(this);
         this.addToOrder = this.addToOrder.bind(this);
+        this.removeFromOrder = this.removeFromOrder.bind(this);
         this.updateFish = this.updateFish.bind(this);
+        this.removeFish = this.removeFish.bind(this);
         this.state = {
             fishes: {},
             order: {}
@@ -66,6 +68,12 @@ class App extends React.Component {
         this.setState({fishes}); // = this.setState({ fishes: fishes });
     }
 
+    removeFish(key) { // удалить рыбу
+        const fishes = {...this.state.fishes}; // копируем состояние
+        fishes[key] = null;
+        this.setState({fishes}); // = this.setState({ fishes: fishes });
+    }
+
     loadSamples() { // загрузить примеры из файла
         this.setState ({
             fishes: sampleFishes
@@ -78,6 +86,12 @@ class App extends React.Component {
         order[key] = order[key] + 1 || 1; // обновляем количество
         // обновить состояние
         this.setState({ order: order });
+    }
+
+    removeFromOrder(key) { // удаляем заказ
+        const order = {...this.state.order}; // копируем состояние
+        delete order[key];
+        this.setState({ order }); // = this.setState({ fishes: fishes });
     }
 
     render() {
@@ -98,12 +112,14 @@ class App extends React.Component {
                     fishes={this.state.fishes} 
                     order={this.state.order}
                     params={this.props.match.params}
+                    removeFromOrder={this.removeFromOrder}
                 />
                 <Inventory 
                     addFish={this.addFish} 
                     loadSamples={this.loadSamples}
                     fishes={this.state.fishes}
                     updateFish={this.updateFish}
+                    removeFish={this.removeFish}
                 />
             </div>
         )

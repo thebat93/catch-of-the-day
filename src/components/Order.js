@@ -10,14 +10,16 @@ class Order extends React.Component {
     renderOrder(key) { // функция для рендера каждого заказа из списка
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
+        // сохраняем кнопку (JSX) в переменную
+        const removeButton = (<button onClick={() => this.props.removeFromOrder(key)}>&times;</button>);
 
         if (!fish || fish.status === 'unavailable') { // если рыбы нет или она была распродана
-            return <li key={key}>Sorry, {fish ? fish.name : 'the fish'} is no longer available</li>
+            return <li key={key}>Sorry, {fish ? fish.name : 'the fish'} is no longer available{removeButton}</li>
         } 
         // если рыба есть, то рендерим элемент списка
         return (
             <li key={key}>
-                <span>{count}lbs {fish.name}</span>
+                <span>{count}lbs {fish.name} {removeButton}</span>
                 <span className="price">{formatPrice(count * fish.price)}</span>
             </li>
         )
