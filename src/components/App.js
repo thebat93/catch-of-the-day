@@ -14,6 +14,7 @@ class App extends React.Component {
         this.addFish = this.addFish.bind(this); // присобачиваем обратно потерянный this для каждого метода 
         this.loadSamples = this.loadSamples.bind(this);
         this.addToOrder = this.addToOrder.bind(this);
+        this.updateFish = this.updateFish.bind(this);
         this.state = {
             fishes: {},
             order: {}
@@ -56,6 +57,15 @@ class App extends React.Component {
         this.setState({ fishes: fishes });
     }
 
+    updateFish(key, updatedFish) { // обновить рыбу при изменеии склада
+        // обновить состояние
+        const fishes = {...this.state.fishes}; // копируем состояние
+        // обновляем рыбу
+        fishes[key] = updatedFish;
+        // установить состояние
+        this.setState({fishes}); // = this.setState({ fishes: fishes });
+    }
+
     loadSamples() { // загрузить примеры из файла
         this.setState ({
             fishes: sampleFishes
@@ -89,7 +99,12 @@ class App extends React.Component {
                     order={this.state.order}
                     params={this.props.match.params}
                 />
-                <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+                <Inventory 
+                    addFish={this.addFish} 
+                    loadSamples={this.loadSamples}
+                    fishes={this.state.fishes}
+                    updateFish={this.updateFish}
+                />
             </div>
         )
     }
