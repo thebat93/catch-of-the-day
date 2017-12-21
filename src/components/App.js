@@ -5,6 +5,7 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
+import base from '../base';
 
 class App extends React.Component {
     constructor() {
@@ -17,6 +18,20 @@ class App extends React.Component {
             fishes: {},
             order: {}
         };
+    }
+
+    // событие жизненного цикла: перед рендерингом...
+    componentWillMount() { // ...синхронизировать состояние с БД
+        this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`,
+        {
+            context: this,
+            state: 'fishes'
+        });
+    }
+
+    // событие жизненного цикла: после разрушения компонента...
+    componentWillUnmount() { // ...разорвать соединение
+        base.removeBinding(this.ref);
     }
 
     addFish(fish) { // добавить рыбу
