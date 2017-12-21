@@ -1,3 +1,4 @@
+// Компонент с ошибкой о ненайденной странице
 import React from 'react';
 
 // Stateless Functional Component

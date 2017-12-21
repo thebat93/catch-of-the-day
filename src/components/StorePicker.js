@@ -1,3 +1,4 @@
+// Начальная страница, выбор магазина
 import React from 'react';
 import { getFunName } from '../helpers';
 

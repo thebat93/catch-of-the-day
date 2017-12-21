@@ -1,3 +1,4 @@
+// Форма для добавления рыбы
 import React from 'react';
 
 class AddFishForm extends React.Component {

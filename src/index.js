@@ -1,4 +1,4 @@
-// let's go!
+// Главный файл где все собирается + Роутинг
 import React from 'react';
 import { render } from 'react-dom';
 import './css/style.css';
