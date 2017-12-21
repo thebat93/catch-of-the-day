@@ -27,11 +27,23 @@ class App extends React.Component {
             context: this,
             state: 'fishes'
         });
+
+        const localStorageRef = localStorage.getItem(`order-${this.props.match.params.storeId}`);
+        if(localStorageRef) { // если в LocalStorage есть заказы...
+            this.setState({ // ...то обновляем состояние
+                order: JSON.parse(localStorageRef)
+            });
+        }
     }
 
     // событие жизненного цикла: после разрушения компонента...
     componentWillUnmount() { // ...разорвать соединение
         base.removeBinding(this.ref);
+    }
+
+    // событие жизненного цикла: когда props или state меняются...
+    componentWillUpdate(nextProps, nextState) { // ...обновить заказы в LocalStorage
+        localStorage.setItem(`order-${this.props.match.params.storeId}`, JSON.stringify(nextState.order));
     }
 
     addFish(fish) { // добавить рыбу
@@ -72,7 +84,11 @@ class App extends React.Component {
                         }
                     </ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order} />
+                <Order 
+                    fishes={this.state.fishes} 
+                    order={this.state.order}
+                    params={this.props.match.params}
+                />
                 <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
             </div>
         )
